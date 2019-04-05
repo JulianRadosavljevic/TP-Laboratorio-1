@@ -3,7 +3,7 @@
 #include "f_math.h"
 #include "f_validacion.h"
 
-int main(void)
+int main()
 {
     int opcion;
 
@@ -18,6 +18,7 @@ int main(void)
     do
         {
             printf("\n\nElija una opcion: ");
+            scanf("%i", &opcion);
 
             switch(opcion)
             {
@@ -44,6 +45,17 @@ int main(void)
                     printf("\n<<Usted eligio la operacion division>>\n\n");
                     getDivision();
                     break;
+                }
+            case 5:
+                {
+                    printf("\n<<Usted eligio la operacion factorizacion>>\n\n");
+                    getFactoreal();
+                    break;
+                }
+            default:
+                {
+                    printf("\n<<Cancelar>>\n\n");
+                    return 0;
                 }
             }
 

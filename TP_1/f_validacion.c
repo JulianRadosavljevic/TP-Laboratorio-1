@@ -6,11 +6,23 @@
 int convertCharToInt(char num[])
 {
     int salida = 0;
-    int i;
+    int i = 0;
 
-    for(i=0;i < strlen(num) - 1;i++)
+    while(num[i] != '\0')
     {
-        salida = salida * 10 + (int)num[i] - 48;
+        salida = salida * 10;
+        if (num[0] == '-')
+        {
+            if (i != 0)
+            {
+              salida = salida - ((int)num[i] - 48);
+            }
+        }
+        else
+        {
+            salida = salida + ((int)num[i] - 48);
+        }
+       i++;
     }
 
     return salida;
@@ -18,80 +30,29 @@ int convertCharToInt(char num[])
 
 int validNumber(char num[])
 {
-    int i;
+    int i = 0;
+    int cantdec = 0;
 
-    for(i=0;i < strlen(num) - 1;i++)
+    while(num[i] != '\0')
     {
-        if(!isdigit(num[i]))
+        if (num[i] >= '0' && num[i] <= '9')
+        {
+            i++;
+        }
+        else if ( num[i] == '-' && i == 0)
+        {
+            i++;
+        }
+        else if ( num[i] == ',' && cantdec == 0)
+        {
+            cantdec = 1;
+            i++;
+        }
+        else
         {
             return 0;
-            break;
         }
     }
 
     return 1;
-
-}
-
-int getMaxMin(int* max, int* min, int orden)
-{
-    int numero = 0;
-    char texto[5];
-
-    printf("Ingrese un numero %i: \n", orden + 1);
-    scanf("%s", texto);
-
-    if(validNumber(texto))
-    {
-        numero = convertCharToInt(texto);
-
-        if(orden == 0)
-        {
-            *max = numero;
-            *min = numero;
-        }
-        if(numero > *max)
-        {
-            *max = numero;
-        }
-
-        if(numero < *min)
-        {
-            *min = numero;
-        }
-
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int IngreseNumero(char mensaje[], int* num)
-{
-    int salida = 0;
-    char texto[] = "";
-    printf("%i\n",*num);
-    num = 0;
-
-    printf(mensaje);
-    scanf("%s",&texto[0]);
-
-    salida = validNumber(texto);
-
-    if(salida == 1)
-        {
-            int numx = convertCharToInt(texto);
-            printf("xxx %i",numx);
-            *num = numx;
-            printf("texto %s, numero %i ", texto, *num);
-        }
-    else
-        {
-            printf("Dato invalido!");
-        }
-
-    return salida;
-
 }
